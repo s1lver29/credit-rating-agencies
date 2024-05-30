@@ -3,13 +3,15 @@ repos:
     rev: v4.5.0
     hooks:
       - id: end-of-file-fixer
-        exclude: "business-facing/layer"
+        exclude: "migrations/"
       - id: trailing-whitespace
-        exclude: "business-facing/layer"
+        exclude: "migrations/"
       - id: check-yaml
-        exclude: "business-facing/layer"
+        exclude: "migrations/"
       - id: check-json
-        exclude: "business-facing/layer"
+        exclude: "migrations/"
+      - id: check-toml
+        exclude: "migrations/"
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     # Ruff version.
