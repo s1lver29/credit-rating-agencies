@@ -13,7 +13,7 @@ class CreditAgencySummaries(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     rating: Mapped[str] = mapped_column(String(length=10), nullable=False)
-    rating_details: Mapped[str] = mapped_column(String(length=10), nullable=False)
+    # rating_details: Mapped[str] = mapped_column(String(length=10), nullable=False)
     summary: Mapped[str] = mapped_column(String(length=1000), nullable=False)
     created_at: Mapped[datetime.timestamp] = mapped_column(
         TIMESTAMP, default=datetime.now(UTC)

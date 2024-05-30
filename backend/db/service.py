@@ -36,16 +36,16 @@ class UserTextPressRelease:
 
         results = await self.session.execute(query)
 
-        return results.scalars().all()
+        return results.scalars().first()
 
 
 class CreditAgencySummary:
     def __init__(self, session: AsyncSession):
         self.session = session
 
-    async def add_summary(self, id: int, rating: str, detail_rating: str, summary: str) -> bool:
+    async def add_summary(self, rating: str, summary: str) -> bool:
         new_summary = CreditAgencySummaries(
-            id=id, rating=rating, rating_details=detail_rating, summary=summary
+            rating=rating, summary=summary
         )
         self.session.add(new_summary)
 
@@ -57,12 +57,30 @@ class CreditAgencySummary:
 
         return credit_agency_symmaries.scalars().all()
 
+    async def get_summary(self, id: int):
+        filters = [CreditAgencySummaries.id == id]
+        query = select(CreditAgencySummaries).where(*filters)
+
+        results = await self.session.execute(query)
+
+        return results.scalars().first()
+
 class ModifiedPressRelease:
     def __init__(self, session: AsyncSession) -> bool:
         self.session = session
 
     async def add_modified_press_release(self, modified_text: str):
-        new_mod_press_release = ModifiedPressReleases(id=id, text=modified_text)
+        new_mod_press_release = ModifiedPressReleases(text=modified_text)
         self.session.add(new_mod_press_release)
 
         return True
+
+    async def get_press_release(self, id: int):
+        filters = [ModifiedPressReleases.id == id]
+        query = select(ModifiedPressReleases).where(*filters)
+
+        result = await self.session.execute(query)
+
+        return result.scalars().first()
+
+
