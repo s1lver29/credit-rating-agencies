@@ -2,8 +2,8 @@ from enum import Enum
 from os import getenv
 from pathlib import Path
 
-from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Environment(str, Enum):
@@ -33,6 +33,7 @@ class ModelSettings(BaseSettings):
         env_file=Path(__file__).parent / f"{getenv('ENVIRONMENT')}.env",
         env_file_encoding="utf-8",
     )
+
 
 # class CelerySettings(BaseSettings):
 #     broker_redis_url: None | str = None
