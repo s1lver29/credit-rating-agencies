@@ -1,8 +1,10 @@
+from typing import Annotated
+
 from pydantic import BaseModel, constr
 
 
 class PressRelease(BaseModel):
-    text: str = constr(min_length=100)
+    text: Annotated[str, constr(min_length=100)]
 
 
 class ModifiedPressRelease(BaseModel):
