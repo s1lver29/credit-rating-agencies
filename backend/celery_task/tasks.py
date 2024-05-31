@@ -2,14 +2,15 @@ import asyncio
 
 from celery import Celery
 
+from conf.settings import settings
 from service import add_credit_agency_summaries, add_modified_text_press_release, add_realease
 
 from .ml.main import generate_report_press_release
 
 celery_app = Celery(
     __name__,
-    broker="redis://localhost:6379/0",
-    backend="redis://localhost:6379/0",
+    broker=settings.broker_redis_url,
+    backend=settings.backend_redis_url,
     include=["celery_task.tasks"],
 )
 
@@ -32,4 +33,4 @@ def preprocessing(text: str):
 
         loop.run_until_complete(group_tasks)
     finally:
-        loop.close()
+        pass

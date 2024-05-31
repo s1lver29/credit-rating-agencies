@@ -10,15 +10,15 @@ PATH_N_GRAMS = "./celery_task/ml/models/ngram-table.csv"
 
 
 def generate_report_tfidf(
-    pr_cleaned: list[str], pr_orig: list[str], ngrams: list, *, report_len=5
-):
+    pr_cleaned: list[str], pr_orig: list[str], ngrams: list[str], *, report_len: int = 5
+) -> str:
     """
     Генерирует интерпретацию присвоенного рейтинга заданной длины report_len жадным образом,
     используя нграммы сортированные по важности с помощью лог. рег.
     """
     # assert len(pr_cleaned) == len(pr_orig), "Different sizes of sentence lists"
-    report = []
-    indices = []  # хранит индексы предложений, которые уже отправлены в отчёт, чтобы не повторяться
+    report: list[str] = []
+    indices: list[int] = []  # хранит индексы предложений, которые уже отправлены в отчёт, чтобы не повторяться
     finished = False
     for ngram in ngrams:
         for i, sent in enumerate(pr_cleaned):
@@ -33,7 +33,7 @@ def generate_report_tfidf(
 
     return " ".join(report)
 
-def text_coloring(word_attributions: list[str, float]):
+def text_coloring(word_attributions) -> str:
     text = ""
     words = []
 
@@ -53,7 +53,7 @@ def text_coloring(word_attributions: list[str, float]):
 
     return text
 
-def generate_report_press_release(text_press_release: str):
+def generate_report_press_release(text_press_release: str) -> tuple[str, str, str]:
     text_lemmatization, clean_text = main_preprocessing(text_press_release)
 
     clean_text_sent = nltk.sent_tokenize(clean_text)

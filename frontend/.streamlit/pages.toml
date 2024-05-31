@@ -1,0 +1,7 @@
+[[pages]]
+path = "./pages/add-press-release.py"
+name = "add-press-release"
+
+[[pages]]
+path = "./pages/credit-agencies.py"
+name = "credit-agencies"

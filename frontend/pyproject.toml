@@ -7,7 +7,12 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-streamlit = "^1.32.2"
+streamlit = "^1.33.0"
+st-material-table = "^0.0.4"
+streamlit-custom-notification-box = "^0.1.2"
+streamlit-option-menu = "^0.3.12"
+streamlit-extras = "^0.4.2"
+st-pages = "^0.4.5"
 
 
 [build-system]
