@@ -15,7 +15,7 @@ class CreditAgencySummaries(Base):
     rating: Mapped[str] = mapped_column(String(length=10), nullable=False)
     # rating_details: Mapped[str] = mapped_column(String(length=10), nullable=False)
     summary: Mapped[str] = mapped_column(String(length=1000), nullable=False)
-    created_at: Mapped[datetime.timestamp] = mapped_column(
+    created_at: Mapped[datetime.timestamp] = mapped_column(  # type: ignore
         TIMESTAMP, default=datetime.now(UTC)
     )
 
@@ -25,7 +25,7 @@ class TextPressReleases(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     text: Mapped[str] = mapped_column(Text, nullable=False)
-    created_at: Mapped[datetime.timestamp] = mapped_column(
+    created_at: Mapped[datetime.timestamp] = mapped_column(  # type: ignore
         TIMESTAMP, default=datetime.now(UTC)
     )
 
@@ -35,6 +35,6 @@ class ModifiedPressReleases(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     text: Mapped[str] = mapped_column(Text, nullable=False)
-    created_at: Mapped[datetime.timestamp] = mapped_column(
+    created_at: Mapped[datetime.timestamp] = mapped_column(  # type: ignore
         TIMESTAMP, default=datetime.now(UTC)
     )

@@ -1,3 +1,4 @@
+from collections.abc import Sequence
 from contextlib import asynccontextmanager
 
 from sqlalchemy import select
@@ -8,7 +9,7 @@ from .models import CreditAgencySummaries, ModifiedPressReleases, TextPressRelea
 
 
 @asynccontextmanager
-async def async_database_session():
+async def async_database_session():  # type: ignore
     async with async_session() as session:
         try:
             yield session
@@ -30,7 +31,7 @@ class UserTextPressRelease:
 
         return True
 
-    async def get_text_press_release(self, id: int):
+    async def get_text_press_release(self, id: int) -> TextPressReleases | None:
         filters = [TextPressReleases.id == id]
         query = select(TextPressReleases).where(*filters)
 
@@ -44,20 +45,18 @@ class CreditAgencySummary:
         self.session = session
 
     async def add_summary(self, rating: str, summary: str) -> bool:
-        new_summary = CreditAgencySummaries(
-            rating=rating, summary=summary
-        )
+        new_summary = CreditAgencySummaries(rating=rating, summary=summary)
         self.session.add(new_summary)
 
         return True
 
-    async def get_summaries(self):
+    async def get_summaries(self) -> Sequence[CreditAgencySummaries]:
         query = select(CreditAgencySummaries)
         credit_agency_symmaries = await self.session.execute(query)
 
         return credit_agency_symmaries.scalars().all()
 
-    async def get_summary(self, id: int):
+    async def get_summary(self, id: int) -> CreditAgencySummaries | None:
         filters = [CreditAgencySummaries.id == id]
         query = select(CreditAgencySummaries).where(*filters)
 
@@ -65,22 +64,21 @@ class CreditAgencySummary:
 
         return results.scalars().first()
 
+
 class ModifiedPressRelease:
-    def __init__(self, session: AsyncSession) -> bool:
+    def __init__(self, session: AsyncSession) -> None:
         self.session = session
 
-    async def add_modified_press_release(self, modified_text: str):
+    async def add_modified_press_release(self, modified_text: str) -> bool:
         new_mod_press_release = ModifiedPressReleases(text=modified_text)
         self.session.add(new_mod_press_release)
 
         return True
 
-    async def get_press_release(self, id: int):
+    async def get_press_release(self, id: int) -> ModifiedPressReleases | None:
         filters = [ModifiedPressReleases.id == id]
         query = select(ModifiedPressReleases).where(*filters)
 
         result = await self.session.execute(query)
 
         return result.scalars().first()
-
-
