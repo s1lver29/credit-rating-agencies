@@ -24,7 +24,13 @@ class GlobalSettings(BaseSettings):
     )
 
 
-environment = getenv("ENVIRONMENT")
-if environment is None:
-    raise ValueError("Environment variable 'ENVIRONMENT' is not set.")
-settings = GlobalSettings(env=environment)  # type: ignore
+def get_settings() -> GlobalSettings:
+    environment = getenv("ENVIRONMENT")
+    if environment is None:
+        raise ValueError("Environment variable 'ENVIRONMENT' is not set.")
+    settings = GlobalSettings(env=environment)  # type: ignore
+
+    return settings
+
+
+settings = get_settings()
