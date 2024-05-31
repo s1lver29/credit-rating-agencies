@@ -28,4 +28,4 @@ repos:
         types: [python]
         require_serial: true
         verbose: true
-        args: [ --config-file mypy.ini ]
+        args: [ "--config-file=mypy.ini" ]
